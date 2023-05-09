@@ -4544,6 +4544,38 @@ figure {
   transition: all 0.4s ease !important;
 }
 
+.section {
+  background-color: #c4c4c4;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 4rem;
+}
+
+.box {
+  height: 11rem;
+  width: 11rem;
+}
+
+.b1 {
+  background-color: purple;
+}
+
+.b2 {
+  background-color: red;
+}
+
+.b3 {
+  background-color: yellow;
+}
+
 @media (min-width: 768px) {
   .pt-md-10 {
     padding-top: 1rem;

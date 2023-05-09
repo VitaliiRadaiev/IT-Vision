@@ -361,11 +361,11 @@ class SmoothScroll {
 			this.container = document.querySelector('[data-smooth-scroll-container]');
 
 			this.updatePageHeight();
-	
+
 			if (!this.container) return;
 
 			window.addEventListener('scroll', () => {
-				
+
 				gsap.to(this.container, {
 					duration: 1,
 					y: `-${window.pageYOffset}`,
@@ -373,16 +373,17 @@ class SmoothScroll {
 			});
 
 			window.addEventListener('resize', () => this.update());
-		} 
+		}
 
-		if(window.pageYOffset > 0) {
+		if (window.pageYOffset > 0) {
 			setTimeout(() => {
 				ScrollTrigger.refresh();
-			},1100);
+			}, 1100);
 		}
 
 
 		this.initScrollParallax();
+		this.initScrollParallax2();
 	}
 
 	update() {
@@ -409,7 +410,7 @@ class SmoothScroll {
 							scrub: true,
 							start: `${startEl} ${startScreen}`,
 							end: `${endEl} ${endScreen}`,
-							ignoreMobileResize : true
+							ignoreMobileResize: true
 							//markers: true
 						}
 					});
@@ -427,6 +428,47 @@ class SmoothScroll {
 						}
 					});
 				}
+			})
+		}
+	}
+
+	initScrollParallax2() {
+		let scrollParalaxElements = document.querySelectorAll('[data-speed]');
+		if (scrollParalaxElements.length) {
+			ScrollTrigger.config({
+				limitCallbacks: true,
+				ignoreMobileResize: true,
+			})
+			scrollParalaxElements.forEach(el => {
+				let speed = Number(el.getAttribute('data-speed'));
+				let lag = Number(el.getAttribute('data-lag'));
+
+				ScrollTrigger.create({
+					trigger: el,
+					start: 'top 100%',
+					end: 'bottom 0%',
+					onUpdate: (self) => {
+						let value = 100 * ((self.progress - 0.5) * -1) * speed;
+						console.log('update');
+						gsap.to(el, {
+							y: value,
+							duration: lag ? lag : 0,
+						})
+					},
+					onToggle: () => {
+						console.log('toggle')
+					}
+				})
+				window.addEventListener('scroll', () => {
+					let screenHeight = document.documentElement.clientHeight;
+					let coords = el.getBoundingClientRect();
+					let top = coords.top + (el.clientHeight / 2);
+					let center = (screenHeight / 2) - top;
+					let persent = (center / screenHeight).toFixed(2);
+					let value = 100 * persent * 2;
+
+
+				})
 			})
 		}
 	}
@@ -1174,7 +1216,7 @@ window.popup = {
 
 };
 	}
-	
+
 	componentsBeforeLoad() {
 		{
     let textParallaxSection = document.querySelector('[data-text-parallax]');

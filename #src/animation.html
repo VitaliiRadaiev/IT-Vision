@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+@@include('_head.html',{
+"title": "IT-Vision"
+})
+
+<body>
+	<div class="_preload-body"></div>
+	<!-- == HEADER ================== -->
+	@@include('components/header/_header.html',{
+	"mod": ""
+	})
+	<!-- == // HEADER ================== -->
+	<div class="main-wrapper" data-smooth-scroll-container>
+		<div class="pt-by-header-size"></div>
+		<main class="_page home-page">
+            <div class="section">
+                <div class="box b1"></div>
+            </div>
+            <div class="section">
+                <div class="box b1" data-speed="3" data-lag="0.2"></div>
+                <div class="box b2" data-speed="3" data-lag="0.4"></div>
+                <div class="box b3" data-speed="3" data-lag="0.6"></div>
+            </div>
+		</main>
+
+		<!-- == FOOTER ================== -->
+		@@include('components/footer/_footer.html',{})
+		<!-- == // FOOTER ================== -->
+	</div>
+</body>
+
+</html>

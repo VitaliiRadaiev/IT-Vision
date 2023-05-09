@@ -54,3 +54,26 @@
 @import "pages/home";
 // ==== AND PAGES =====================================================
 
+.section {
+    background-color: #c4c4c4;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    
+}
+.box {
+    height: 11rem;
+    width: 11rem;
+}
+
+.b1 {
+    background-color: purple;
+}
+.b2 {
+    background-color: red;
+}
+.b3 {
+    background-color: yellow;
+}
