@@ -410,13 +410,13 @@ class SmoothScroll {
 			scrollParalaxElements.forEach(el => {
 
 				if (el.dataset.scrollParallaxMob && document.documentElement.clientWidth < 768) {
-					let [value, startEl, startScreen, endEl, endScreen] = el.dataset.scrollParallaxMob.split(',');
+					let [value, startEl, startScreen, endEl, endScreen, scrub = true] = el.dataset.scrollParallaxMob.split(',');
 					gsap.to(el, {
 						y: value,
 						duration: 1,
 						scrollTrigger: {
 							trigger: el.closest('[data-scroll-parallax-trigger]'),
-							scrub: true,
+							scrub: typeof scrub == 'boolean' ? scrub : Number(scrub),
 							start: `${startEl} ${startScreen}`,
 							end: `${endEl} ${endScreen}`,
 							//markers: true
@@ -1249,6 +1249,44 @@ window.popup = {
             })
 
         }
+    }
+};
+		{
+    let workHeadNavEl = document.querySelector('[data-work-head-nav]');
+    if (workHeadNavEl) {
+        let mySwiper;
+        let slider = workHeadNavEl;
+
+        function mobileSlider() {
+            if (document.documentElement.clientWidth <= 767.98 && slider.dataset.mobile == 'false') {
+                mySwiper = new Swiper(slider, {
+                    slidesPerView: 'auto',
+                    speed: 600,
+                    spaceBetween: 16,
+                    freeMode: true,
+                    slideToClickedSlide: true,
+                    watchOverflow: true,
+                    watchSlidesVisibility: true,
+                    initialSlide: Array.from(workHeadNavEl.firstElementChild.children).indexOf(workHeadNavEl.querySelector('.work-head__nav-link.active').closest('.swiper-slide')),
+                });
+
+                slider.dataset.mobile = 'true';
+            }
+
+            if (document.documentElement.clientWidth > 767.98) {
+                slider.dataset.mobile = 'false';
+
+                if (slider.classList.contains('swiper-initialized')) {
+                    mySwiper.destroy();
+                }
+            }
+        }
+
+        mobileSlider();
+
+        window.addEventListener('resize', () => {
+            mobileSlider();
+        })
     }
 };
 	}

@@ -63,13 +63,13 @@ class SmoothScroll {
 			scrollParalaxElements.forEach(el => {
 
 				if (el.dataset.scrollParallaxMob && document.documentElement.clientWidth < 768) {
-					let [value, startEl, startScreen, endEl, endScreen] = el.dataset.scrollParallaxMob.split(',');
+					let [value, startEl, startScreen, endEl, endScreen, scrub = true] = el.dataset.scrollParallaxMob.split(',');
 					gsap.to(el, {
 						y: value,
 						duration: 1,
 						scrollTrigger: {
 							trigger: el.closest('[data-scroll-parallax-trigger]'),
-							scrub: true,
+							scrub: typeof scrub == 'boolean' ? scrub : Number(scrub),
 							start: `${startEl} ${startScreen}`,
 							end: `${endEl} ${endScreen}`,
 							//markers: true
@@ -343,6 +343,7 @@ class App {
 	componentsBeforeLoad() {
 		@@include('../components/text-parallax/text-parallax.js');
 		@@include('../components/stats/stats.js');
+		@@include('../components/work-head/work-head.js');
 	}
 
 	componentsAfterLoad() {
