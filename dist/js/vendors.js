@@ -26,9 +26,8 @@
  * ScrollSmoother 3.12.0
  * https://greensock.com
 */
-!function (e, t) {
-        "object" == typeof exports && "undefined" != typeof module ? t(exports) : "function" == typeof define && define.amd ? define(["exports"], t) : t((e = e || self).window = e.window || {})
-}(this, function (e) {
+
+(function (e) {
         "use strict";
 
         function _defineProperties(e, t) {
@@ -577,14 +576,12 @@
         },
         t() && L.registerPlugin(r),
         e.ScrollSmoother = r,
-        e.
-default = r;
+        e.default = r;
         if (typeof(window) === "undefined" || window !== e) {
                 Object.defineProperty(e, "__esModule", {
                         value: !0
                 })
         } else {
-                delete e.
-        default
+                delete e.default
         }
-});;
+})(window);;
