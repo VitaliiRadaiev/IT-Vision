@@ -2720,11 +2720,24 @@ figure {
   width: 100%;
 }
 
-.mobile .main-wrapper {
-  position: static;
+#smooth-wrapper {
+  -webkit-transition: opacity 0.5s ease-in var(--global-animation-delay);
+  -o-transition: opacity 0.5s ease-in var(--global-animation-delay);
+  transition: opacity 0.5s ease-in var(--global-animation-delay);
+  opacity: 0;
 }
 
-.page-loaded .main-wrapper {
+#smooth-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.page-loaded #smooth-wrapper {
   opacity: 1;
 }
 
