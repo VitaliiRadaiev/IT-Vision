@@ -44,7 +44,7 @@ class SmoothScroll {
 		// }
 
 
-		// this.initScrollParallax();
+		this.initScrollParallax();
 		// this.initScrollParallax2();
 	}
 
