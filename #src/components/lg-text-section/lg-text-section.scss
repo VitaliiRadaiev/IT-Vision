@@ -50,5 +50,17 @@
                 }
             }
         }
+        &--indent-all {
+            & p {
+                text-indent: 16rem;
+
+                @media (max-width: $md2+px) {
+                    text-indent: 10.6rem;
+                }
+                @media (max-width: $md3+px) {
+                    text-indent: 4rem;
+                }
+            }
+        }
     }
 }

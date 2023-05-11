@@ -11,11 +11,13 @@ class SmoothScroll {
 
 	init() {
 		gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+		ScrollTrigger.normalizeScroll(true);
 		ScrollSmoother.create({
 			wrapper: '#smooth-wrapper',
 			content: '#smooth-content',
 			ignoreMobileResize: true,
-			smooth: 1.5,
+			smooth: 2.5,
+			speed: 1.3,
 			effects: true,
 		})
 
@@ -344,6 +346,7 @@ class App {
 		@@include('../components/text-parallax/text-parallax.js');
 		@@include('../components/stats/stats.js');
 		@@include('../components/work-head/work-head.js');
+		@@include('../components/footer/footer.js');
 	}
 
 	componentsAfterLoad() {

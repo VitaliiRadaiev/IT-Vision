@@ -33,8 +33,9 @@
         font-size: inherit;
         line-height: inherit;
         color: inherit;
-        transition: all .2s ease-in;
+        transition: all .2s ease;
         background: linear-gradient(to bottom, transparent 0%,transparent calc(100% - var(--border-width)), currentColor var(--border-width));
+        background-repeat: no-repeat;
 
         @media (max-width: $md2+px) {
             padding: 0.5rem 0;
@@ -56,7 +57,7 @@
             font-size: inherit;
             line-height: inherit;
             color: inherit;
-            transition: all .2s ease-in;
+            transition: all .2s ease;
             background: linear-gradient(to bottom, transparent 0%,transparent calc(100% - (var(--border-width) + 0.1rem)), currentColor calc(var(--border-width) + 0.1rem));
         }
 

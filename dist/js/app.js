@@ -358,11 +358,13 @@ class SmoothScroll {
 
 	init() {
 		gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+		ScrollTrigger.normalizeScroll(true);
 		ScrollSmoother.create({
 			wrapper: '#smooth-wrapper',
 			content: '#smooth-content',
 			ignoreMobileResize: true,
-			smooth: 1.5,
+			smooth: 2.5,
+			speed: 1.3,
 			effects: true,
 		})
 
@@ -1288,6 +1290,23 @@ window.popup = {
             mobileSlider();
         })
     }
+};
+		{
+    let footerLabelEl = document.querySelector('[data-footer-label]');
+    if (footerLabelEl) {
+        gsap.from(footerLabelEl, {
+            opacity: 0,
+            y: '50%',
+            scrollTrigger: {
+                trigger: footerLabelEl,
+                scrub: 2,
+                stagger: 0.1,
+                start: 'top 110%',
+                end: '+=200',
+            }
+        })
+    }
+
 };
 	}
 

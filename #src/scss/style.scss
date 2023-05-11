@@ -49,33 +49,12 @@
 @import "../components/reviews/reviews";
 @import "../components/lets-talk/lets-talk";
 @import "../components/work-head/work-head";
+@import "../components/banner-with-center-link/banner-with-center-link";
+@import "../components/banner-step/banner-step";
 // ==== // components BLOCKS =====================================================
 
 // ==== PAGES =====================================================
 @import "pages/home";
 @import "pages/work";
+@import "pages/services";
 // ==== AND PAGES =====================================================
-
-.section {
-    background-color: #c4c4c4;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 4rem;
-    
-}
-.box {
-    height: 11rem;
-    width: 11rem;
-}
-
-.b1 {
-    background-color: purple;
-}
-.b2 {
-    background-color: red;
-}
-.b3 {
-    background-color: yellow;
-}
