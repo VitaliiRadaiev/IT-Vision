@@ -1,0 +1,48 @@
+.social-list {
+    padding-left: 0;
+    margin-bottom: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.8rem;
+
+    @media (max-width: $md2+px) {
+        gap: 1.2rem;
+    }
+    
+    & > li {
+        flex: 0 1 calc(33.3333333% - (1.8rem * 2) / 3);
+        
+        @media (max-width: $md2+px) {
+            flex: 0 1 calc(33.3333333% - (1.2rem * 2) / 3);
+        }
+        @media (max-width: $md3+px) {
+            flex: 0 1 calc(50% - 0.6rem);
+        }
+    }
+
+    & a {
+        color: $textColorThird;
+        display: inline-block;
+        --border-width: 0.2rem;
+        font-weight: 600;
+
+        @media (max-width: $md2+px) {
+            --border-width: 0.15rem;
+        }
+
+        & > span, &::before {
+            padding: 0;
+            line-height: 1.2em;
+
+            @media (max-width: $md2+px) {
+                line-height: 1.22em;
+            }
+        }
+    }
+}
+
+.map {
+    height: 100vh;
+    background-color: $secondColor;
+    min-height: 64rem;
+}

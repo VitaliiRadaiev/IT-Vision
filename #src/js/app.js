@@ -179,6 +179,7 @@ class App {
 		@@include('../components/carousel/carousel.js');
 		@@include('../components/instagram/instagram.js');
 		@@include('../components/reviews/reviews.js');
+		@@include('../components/about-team/about-team.js');
 	}
 
 
@@ -347,6 +348,7 @@ class App {
 		@@include('../components/stats/stats.js');
 		@@include('../components/work-head/work-head.js');
 		@@include('../components/footer/footer.js');
+		@@include('../components/input-file/input-file.js');
 	}
 
 	componentsAfterLoad() {

@@ -16,6 +16,7 @@
 
                 let result = files.map(item => item.name);
                 text.innerText = result.join(', ');
+                inputWrap.classList.add('file-added');
             }
 
             input.addEventListener('change', changeHandler);

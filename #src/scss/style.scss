@@ -51,10 +51,16 @@
 @import "../components/work-head/work-head";
 @import "../components/banner-with-center-link/banner-with-center-link";
 @import "../components/banner-step/banner-step";
+@import "../components/about-team/about-team";
+@import "../components/table/table";
+@import "../components/form/form";
+@import "../components/input-file/input-file";
 // ==== // components BLOCKS =====================================================
 
 // ==== PAGES =====================================================
 @import "pages/home";
 @import "pages/work";
 @import "pages/services";
+@import "pages/about";
+@import "pages/contact";
 // ==== AND PAGES =====================================================

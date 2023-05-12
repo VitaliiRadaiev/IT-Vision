@@ -819,6 +819,24 @@ window.popup = {
         });
     }
 };
+		{
+    let aboutTeamSlider = document.querySelector('[data-slider="about-team-slider"]');
+    if(aboutTeamSlider) {
+        let sliderData = new Swiper(aboutTeamSlider.querySelector('.swiper'), {
+            
+            autoplay: {
+                delay: 2000,
+                disableOnInteraction: false,
+            },
+            
+            slidesPerView: 1,
+            spaceBetween: 0,
+            speed: 600,
+            loop: true,
+            loopedSlides: 3,
+        });
+    }
+};
 	}
 
 
@@ -1308,6 +1326,45 @@ window.popup = {
     }
 
 };
+		(function uploadFileHandler() {
+    let files = []
+    let inputWrapItems = document.querySelectorAll('.file-input');
+    if (inputWrapItems.length) {
+        inputWrapItems.forEach(inputWrap => {
+            let input = inputWrap.querySelector('input[type="file"]');
+            let text = inputWrap.querySelector('.file-input__text');
+
+
+            const changeHandler = (event) => {
+                if (!event.target.files.length) {
+                    return
+                }
+
+                files = Array.from(event.target.files);
+
+                let result = files.map(item => item.name);
+                text.innerText = result.join(', ');
+                inputWrap.classList.add('file-added');
+            }
+
+            input.addEventListener('change', changeHandler);
+
+            ;['dragenter', 'dragover'].forEach(eventName => {
+                input.addEventListener(eventName, (e) => {
+                    inputWrap.classList.add('highlight');
+                });
+            })
+            ;['dragleave', 'drop'].forEach(eventName => {
+                input.addEventListener(eventName, (e) => {
+                    inputWrap.classList.remove('highlight');
+                });
+            })
+
+        })
+    }
+})()
+
+;
 	}
 
 	componentsAfterLoad() {

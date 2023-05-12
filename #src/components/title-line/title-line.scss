@@ -18,7 +18,7 @@
 
     &--load-fade-in {
         transition: transform var(--global-animation-duration) ease-in var(--global-animation-delay);
-        transform: translateY(100%);
+        transform: translateY(5rem);
     }
 }
 

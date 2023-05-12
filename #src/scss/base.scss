@@ -321,31 +321,34 @@ figure {
 	}
 }
 
-.text-primary {
+.text-color-primary {
 	color: $mainColor !important;
 }
 
-.text-secondary {
+.text-color-secondary {
 	color: $textColorSecondary !important;
 }
+.text-color-third {
+	color: $textColorThird !important;
+}
 
-.text-success {
+.text-color-success {
 	color: $successColor !important;
 }
 
-.text-danger {
+.text-color-danger {
 	color: $dangerColor !important;
 }
 
-.text-info {
+.text-color-info {
 	color: $infoColor !important;
 }
 
-.text-dark {
+.text-color-dark {
 	color: $textColor !important;
 }
 
-.text-light {
+.text-color-light {
 	color: $secondColor !important;
 }
 
@@ -465,7 +468,6 @@ figure {
 	}
 
 	& a {
-		text-decoration: underline;
 
 		@media (min-width: 992px) {
 			&:hover {
@@ -1593,6 +1595,11 @@ figure {
 .mb-md-104 {
 	@media (min-width: 768px) {
 		margin-bottom: 10.4rem;
+	}
+}
+.mb-md-160 {
+	@media (min-width: 768px) {
+		margin-bottom: 16rem;
 	}
 }
 

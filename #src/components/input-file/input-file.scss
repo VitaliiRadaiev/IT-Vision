@@ -6,16 +6,24 @@
     @media (min-width: 992px) {
         &:hover {
             & .file-input__text {
-                border: 1px dashed $mainColor;
+                background: #e1e2e2;
             }
         }
     }
 
-    &.highlight {
+    &.file-added {
         & .file-input__text {
-            border: 1px dashed $mainColor;
+            &:before {
+                content: '✓';
+            }
         }
     }
+
+    // &.highlight {
+    //     & .file-input__text {
+    //         border: 1px dashed $mainColor;
+    //     }
+    // }
 
     & input {
         position: absolute;
@@ -29,27 +37,67 @@
     }
     &__text {
         display: flex;
-        justify-content: center;
         align-items: center;
-        height: 80px;
-        transition: all 0.3s ease;
-        text-align: center;
-        background: #ffffff;
-        border: 1px dashed #dcdcdc;
-        border-radius: 6px;
-        font-size: 16px;
-        line-height: 21px;
+        width: 100%;
+        background: #EEF0F1;
+        border-radius: 0rem;
+        height: 6.4rem;
+        padding: 1.6rem 3.2rem;
+        padding-right: 5rem;
+        border: 1px solid transparent;
+        outline: none;
+        font-size: 1.7rem;
+        line-height: 1.8em;
+        font-weight: 600;
+        color: $textColorSecondary;
+        transition: all .2s ease;
+        position: relative;
 
-        @media (max-width: $md3+px) {
-            height: 70px;
+        &:before {
+            font-family: $mainFontFamily !important;
+            position: absolute;
+            content: '+';
+            top: 50%;
+            right: 3.2rem;
+            transform: translateY(-50%);
+
+            @media (max-width: $md2+px) {
+                right: 2rem;
+            }
+        }
+    
+        &:focus {
+            border-color: $textColorThird;
+        }
+    
+        &::placeholder {
+            font-size: 1.7rem;
+            line-height: 1.8em;
+            font-weight: 600;
+            color: $textColorSecondary;
+        }
+    
+        @media (max-width: $md2+px) {
+            height: 4.2rem;
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            padding-right: 3.6rem;
         }
     }
 
     &__result {
         position: absolute;
         top: 100%;
-        font-size: 11px;
-        line-height: 1.4em;
+        font-size: 1.7rem;
+        line-height: 1.8em;
+        font-weight: 600;
+        color: $textColorSecondary;
+        padding: 1.6rem 3.2rem;
+
+        @media (max-width: $md2+px) {
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+        }
     }
 
     & .wpcf7-form-control-wrap {
