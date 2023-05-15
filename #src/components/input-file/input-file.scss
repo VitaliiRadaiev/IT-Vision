@@ -19,6 +19,15 @@
         }
     }
 
+    &.error {
+
+        & .file-input__text {
+            background-color: #fff;
+            color: $mainColor;
+            border-color: $mainColor;
+        }
+    }
+
     // &.highlight {
     //     & .file-input__text {
     //         border: 1px dashed $mainColor;
@@ -44,7 +53,7 @@
         height: 6.4rem;
         padding: 1.6rem 3.2rem;
         padding-right: 5rem;
-        border: 1px solid transparent;
+        border: 0.2rem solid transparent;
         outline: none;
         font-size: 1.7rem;
         line-height: 1.8em;

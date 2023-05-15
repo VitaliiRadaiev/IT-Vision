@@ -85,7 +85,7 @@
     border-radius: 0rem;
     height: 6.4rem;
     padding: 1.6rem 3.2rem;
-    border: 1px solid transparent;
+    border: 0.2rem solid transparent;
     outline: none;
     font-size: 1.7rem;
     line-height: 1.8em;
@@ -100,7 +100,7 @@
         font-size: 1.7rem;
         line-height: 1.8em;
         font-weight: 600;
-        color: $textColorSecondary;
+        color: currentColor;
 
         @media (max-width: $md2+px) {
             font-size: 1.1rem;
@@ -112,6 +112,12 @@
         font-size: 1.1rem;
         padding: 1rem 2rem;
     }
+
+    &.error {
+        background-color: #fff;
+        color: $mainColor;
+        border-color: $mainColor;
+    }
 }
 .textarea {
     display: flex;
@@ -121,7 +127,7 @@
     border-radius: 0rem;
     height: 24.6rem;
     padding: 1.6rem 3.2rem;
-    border: 1px solid transparent;
+    border: 0.2rem solid transparent;
     outline: none;
     font-size: 1.7rem;
     line-height: 1.8em;
@@ -137,7 +143,7 @@
         font-size: 1.7rem;
         line-height: 1.8em;
         font-weight: 600;
-        color: $textColorSecondary;
+        color: currentColor;
 
         @media (max-width: $md2+px) {
             font-size: 1.1rem;
@@ -148,6 +154,12 @@
         height: 16.4rem;
         font-size: 1.1rem;
         padding: 1rem 2rem;
+    }
+
+    &.error {
+        background-color: #fff;
+        color: $mainColor;
+        border-color: $mainColor;
     }
 }
 
