@@ -28,7 +28,7 @@ class SmoothScroll {
 
 		gsap.registerPlugin(ScrollTrigger);
 
-		if (!this.utils.isMobile() && !this.utils.isSafari()) {
+		if (!this.utils.isMobile()) {
 
 			// Init smooth scrollbar
 			const view = document.getElementById('smooth-wrapper');
