@@ -7,6 +7,8 @@
     line-height: 1.6em;
     font-weight: 600;
     color: $textColorThird;
+    text-decoration: none !important;
+    box-shadow: none !important;
 
     --border-width: 0.2rem;
 
@@ -74,4 +76,35 @@
         }
     }
 
+}
+
+.btn-second {
+    flex: 0 0 auto;
+    border-radius: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 6.4rem;
+    padding: 1.6rem 4rem;
+    color: $textColorLight;
+    font-weight: 600;
+    font-size: 1.7rem;
+    line-height: 1.8em;
+    background-color: $mainColor;
+    transition: all .2s ease !important;
+    cursor: pointer;
+    border: 0.2rem solid $mainColor;
+
+    @media (max-width: $md2+px) {
+        font-size: 1.2rem;
+        height: 4.3rem;
+    }
+
+    @media (min-width: 992px) {
+        &:hover {
+            color: $hover !important;
+            background-color: transparent;
+        }
+    }
 }

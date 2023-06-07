@@ -95,10 +95,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
 <script src="js/vendors.js"></script>
 <script src="js/app.js"></script>
-<script
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Q82l2QjSzJJk1uUW3OzUBGPTlbk8w1g&callback=initMap&libraries=&v=weekly"
-defer
-></script>
+
 </head>
 
 <body>
@@ -124,26 +121,69 @@ defer
         </div>
         <div class="header__center container-second">
             <div class="header__nav swiper" data-header-nav data-mobile="false">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <a href="#test" class="header__nav-link active">Work</a>
-                    </div>
-                    <div class="swiper-slide">
+                <ul class="swiper-wrapper">
+                    <li class="swiper-slide">
+                        <a href="#test" class="header__nav-link">Work</a>
+                    </li>
+                    <li class="swiper-slide menu-item-has-children">
                         <a href="#" class="header__nav-link">Products</a>
-                    </div>
-                    <div class="swiper-slide">
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="#" class="sub-menu__link">MVP development</a>
+                            </li>
+                            <li>
+                                <a href="#" class="sub-menu__link">Wow-site</a>
+                            </li>
+                            <li>
+                                <a href="#" class="sub-menu__link">Corporate Website</a>
+                            </li>
+                            <li>
+                                <a href="#" class="sub-menu__link">Ecommerce</a>
+                            </li>
+                            <li>
+                                <a href="#" class="sub-menu__link">UX/UI Design</a>
+                            </li>
+                            <li>
+                                <a href="#" class="sub-menu__link">Corporate Design</a>
+                            </li>
+                            <li>
+                                <a href="#" class="sub-menu__link">Mobile App</a>
+                            </li>
+                            <li>
+                                <a href="#" class="sub-menu__link">Prototype</a>
+                            </li>
+                            <li>
+                                <a href="#" class="sub-menu__link">CRM-system</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="swiper-slide menu-item-has-children">
                         <a href="#" class="header__nav-link">Services</a>
-                    </div>
-                    <div class="swiper-slide">
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="#" class="sub-menu__link">Software Development</a>
+                            </li>
+                            <li>
+                                <a href="#" class="sub-menu__link">Discovery</a>
+                            </li>
+                            <li>
+                                <a href="#" class="sub-menu__link">UX/UI design</a>
+                            </li>
+                            <li>
+                                <a href="#" class="sub-menu__link">UX/UI Audit</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="swiper-slide">
                         <a href="#" class="header__nav-link">Methods</a>
-                    </div>
-                    <div class="swiper-slide">
+                    </li>
+                    <li class="swiper-slide">
                         <a href="#" class="header__nav-link">About</a>
-                    </div>
-                    <div class="swiper-slide">
+                    </li>
+                    <li class="swiper-slide">
                         <a href="#" class="header__nav-link ">Contacts</a>
-                    </div>
-                </div>
+                    </li>
+                </ul>
             </div>
 
             <div class="header__language" data-da=".header__body,767.98,1">
@@ -151,9 +191,6 @@ defer
                 <ul class="header__language-drop-list">
                     <li>
                         <a href="#">EU</a>
-                    </li>
-                    <li>
-                        <a href="#">FR</a>
                     </li>
                 </ul>
             </div>
@@ -201,84 +238,83 @@ defer
                 <div class="padding-wrap pt-0">
                     <section class="works">
                         <div class="works__list">
-                            <a href="#" class="works__item works__item--full-width work-preview-card"
-                                data-scroll-parallax-trigger>
-                                <div class="work-preview-card__inner" data-scroll-parallax="20rem,bottom,75%,bottom,25%" data-scroll-parallax-mob="20rem,bottom,75%,bottom,25%">
+							<a href="#" class="works__item works__item--full-width work-preview-card">
+								<div class="work-preview-card__inner">
+									<div class="work-preview-card__text-content container">
+										<h3 class="work-preview-card__title work-preview-card__title--dark work-preview-card__title--md-light work-preview-card__title--hover-dark title-3"
+											data-hover-text="Gadget Medics"><span>Smile Sports</span></h3>
+									</div>
+									<div class="work-preview-card__img ibg">
+										<img src="img/photo/SimpleSport.jpg" alt="">
+									</div>
+									<div class="work-preview-card__img-hover ibg">
+										<img src="img/photo/SimpleSport-hover.jpg" alt="">
+									</div>
+									<div class="work-preview-card__label">
+										<div class="work-preview-card__label-arrow">
+											<img src="img/icons/arrot-top-right.svg" alt="">
+										</div>
+										<div class="work-preview-card__label-text text-4">
+											Show
+										</div>
+									</div>
+								</div>
+							</a>
+							<a href="#" class="works__item work-preview-card">
+								<div class="work-preview-card__inner">
+									<div class="work-preview-card__text-content container">
+										<h3 class="work-preview-card__title work-preview-card__title--dark title-3"
+											data-hover-text="Drone Harmony"><span>Binance Pay</span></h3>
+									</div>
+									<div class="work-preview-card__img ibg">
+										<img src="img/photo/BinancePay.jpg" alt="">
+									</div>
+									<div class="work-preview-card__img-hover ibg">
+										<img src="img/photo/BinancePay-hover.jpg" alt="">
+									</div>
+									<div class="work-preview-card__label">
+										<div class="work-preview-card__label-arrow">
+											<img src="img/icons/arrot-top-right.svg" alt="">
+										</div>
+										<div class="work-preview-card__label-text text-4">
+											Show
+										</div>
+									</div>
+								</div>
+							</a>
+							<a href="#" class="works__item work-preview-card">
+								<div class="work-preview-card__inner">
+									<div class="work-preview-card__text-content container">
+										<h3 class="work-preview-card__title work-preview-card__title--dark work-preview-card__title--hover-dark title-3"
+											data-hover-text="Binance Pay"><span>GoAlpes</span></h3>
+									</div>
+									<div class="work-preview-card__img ibg">
+										<img src="img/photo/GoAlpes.jpg" alt="">
+									</div>
+									<div class="work-preview-card__img-hover ibg">
+										<img src="img/photo/GoAlpes-hover.jpg" alt="">
+									</div>
+									<div class="work-preview-card__label">
+										<div class="work-preview-card__label-arrow">
+											<img src="img/icons/arrot-top-right.svg" alt="">
+										</div>
+										<div class="work-preview-card__label-text text-4">
+											Show
+										</div>
+									</div>
+								</div>
+							</a>
+                            <a href="#" class="works__item work-preview-card">
+                                <div class="work-preview-card__inner">
                                     <div class="work-preview-card__text-content container">
-                                        <h3 class="work-preview-card__title work-preview-card__title--dark work-preview-card__title--md-light work-preview-card__title--hover-dark title-3"
-                                            data-hover-text="Gadget Medics"><span>Gadget Medics</span></h3>
-                                    </div>
-                                    <div class="work-preview-card__img ibg">
-                                        <img src="img/photo/work-img-1.jpg" alt="">
-                                    </div>
-                                    <div class="work-preview-card__img-hover ibg">
-                                        <img src="img/photo/work-img-4.jpg" alt="">
-                                    </div>
-                                    <div class="work-preview-card__label">
-                                        <div class="work-preview-card__label-arrow">
-                                            <img src="img/icons/arrot-top-right.svg" alt="">
-                                        </div>
-                                        <div class="work-preview-card__label-text text-4">
-                                            Show
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="works__item work-preview-card" data-scroll-parallax-trigger>
-                                <div class="work-preview-card__inner" data-scroll-parallax="15rem,bottom,75%,bottom,25%" data-scroll-parallax-mob="15rem,bottom,75%,bottom,25%">
-                                    <div class="work-preview-card__text-content container">
-                                        <h3 class="work-preview-card__title work-preview-card__title--dark title-3"
-                                            data-hover-text="Drone Harmony"><span>Drone Harmony</span></h3>
-                                    </div>
-                                    <div class="work-preview-card__img ibg">
-                                        <img src="img/photo/work-img-2.jpg" alt="">
-                                    </div>
-                                    <div class="work-preview-card__img-hover ibg">
-                                        <img src="img/photo/work-img-5.jpg" alt="">
-                                    </div>
-                                    <div class="work-preview-card__label">
-                                        <div class="work-preview-card__label-arrow">
-                                            <img src="img/icons/arrot-top-right.svg" alt="">
-                                        </div>
-                                        <div class="work-preview-card__label-text text-4">
-                                            Show
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="works__item work-preview-card" data-scroll-parallax-trigger>
-                                <div class="work-preview-card__inner" data-scroll-parallax="15rem,bottom,75%,bottom,25%" data-scroll-parallax-mob="15rem,bottom,75%,bottom,25%">
-                                    <div class="work-preview-card__text-content container">
-                                        <h3 class="work-preview-card__title work-preview-card__title--dark work-preview-card__title--hover-dark title-3"
-                                            data-hover-text="Binance Pay"><span>Binance Pay</span></h3>
-                                    </div>
-                                    <div class="work-preview-card__img ibg">
-                                        <img src="img/photo/work-img-3.jpg" alt="">
-                                    </div>
-                                    <div class="work-preview-card__img-hover ibg">
-                                        <img src="img/photo/work-img-6.jpg" alt="">
-                                    </div>
-                                    <div class="work-preview-card__label">
-                                        <div class="work-preview-card__label-arrow">
-                                            <img src="img/icons/arrot-top-right.svg" alt="">
-                                        </div>
-                                        <div class="work-preview-card__label-text text-4">
-                                            Show
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="works__item work-preview-card" data-scroll-parallax-trigger>
-                                <div class="work-preview-card__inner" data-scroll-parallax="15rem,bottom,75%,bottom,25%" data-scroll-parallax-mob="15rem,bottom,75%,bottom,25%">
-                                    <div class="work-preview-card__text-content container">
-                                        <h3 class="work-preview-card__title work-preview-card__title--dark work-preview-card__title--hover-dark title-3"
+                                        <h3 class="work-preview-card__title work-preview-card__title--light work-preview-card__title--hover-dark title-3"
                                             data-hover-text="Binance Pay"><span>Drone Harmony</span></h3>
                                     </div>
                                     <div class="work-preview-card__img ibg">
-                                        <img src="img/photo/work-img-7.jpg" alt="">
+                                        <img src="img/photo/Drone Harmony.jpg" alt="">
                                     </div>
                                     <div class="work-preview-card__img-hover ibg">
-                                        <img src="img/photo/work-img-6.jpg" alt="">
+                                        <img src="img/photo/Drone Harmony-hover.jpg" alt="">
                                     </div>
                                     <div class="work-preview-card__label">
                                         <div class="work-preview-card__label-arrow">
@@ -290,17 +326,17 @@ defer
                                     </div>
                                 </div>
                             </a>
-                            <a href="#" class="works__item work-preview-card" data-scroll-parallax-trigger>
-                                <div class="work-preview-card__inner" data-scroll-parallax="15rem,bottom,75%,bottom,25%" data-scroll-parallax-mob="15rem,bottom,75%,bottom,25%">
+                            <a href="#" class="works__item work-preview-card">
+                                <div class="work-preview-card__inner">
                                     <div class="work-preview-card__text-content container">
-                                        <h3 class="work-preview-card__title work-preview-card__title--dark work-preview-card__title--hover-dark title-3"
-                                            data-hover-text="Binance Pay"><span>Another project</span></h3>
+                                        <h3 class="work-preview-card__title work-preview-card__title--light work-preview-card__title--hover-dark title-3"
+                                            data-hover-text="Binance Pay"><span>Stobox</span></h3>
                                     </div>
                                     <div class="work-preview-card__img ibg">
-                                        <img src="img/photo/work-img-8.jpg" alt="">
+                                        <img src="img/photo/Stobox.jpg" alt="">
                                     </div>
                                     <div class="work-preview-card__img-hover ibg">
-                                        <img src="img/photo/work-img-6.jpg" alt="">
+                                        <img src="img/photo/Stobox-hover.jpg" alt="">
                                     </div>
                                     <div class="work-preview-card__label">
                                         <div class="work-preview-card__label-arrow">
@@ -319,9 +355,9 @@ defer
                     </section>
                 </div>
 				<div class="padding-wrap pb-0">
-					<section class="img-full-width" data-scroll-parallax-trigger>
-						<div class="img-full-width__inner ibg" data-scroll-parallax="-30rem,top,100%,bottom,center" data-scroll-parallax-mob="-15rem,top,100%,bottom,center">
-							<img src="img/photo/banner.jpg" alt="">
+					<section class="img-full-width">
+						<div class="img-full-width__inner ibg">
+							<img data-speed="auto" src="img/photo/banner.jpg" alt="">
 						</div>
 					</section>
 				</div>

@@ -3,88 +3,87 @@
 
 class SmoothScroll {
 	constructor() {
-
-		
 		this.utils = new Utils();
 
+		window.pageSmoothScroll = {
+			update: () => {
+				ScrollTrigger.refresh();
+				ScrollSmoother.refresh();
+				this.initScrollParallax();
+
+				let id = setInterval(() => {
+					ScrollTrigger.refresh();
+					ScrollSmoother.refresh();
+				}, 20);
+
+				setTimeout(() => {
+					clearInterval(id);
+				}, 200)
+			}
+		};
 	}
 
 	init() {
-		gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-		ScrollTrigger.normalizeScroll(true);
-		ScrollSmoother.create({
-			wrapper: '#smooth-wrapper',
-			content: '#smooth-content',
-			ignoreMobileResize: true,
-			smooth: 2.5,
-			speed: 1.3,
-			effects: true,
-		})
+		console.dir(window);
 
-		// if (!this.utils.isMobile()) {
-		// 	this.container = document.querySelector('[data-smooth-scroll-container]');
+		gsap.registerPlugin(ScrollTrigger);
 
-		// 	this.updatePageHeight();
+		if (!this.utils.isMobile() && !this.utils.isSafari()) {
 
-		// 	if (!this.container) return;
-
-		// 	window.addEventListener('scroll', () => {
-
-		// 		gsap.to(this.container, {
-		// 			duration: 1,
-		// 			y: `-${window.pageYOffset}`,
-		// 		})
-		// 	});
-
-		// 	window.addEventListener('resize', () => this.update());
-		// }
-
-		// if (window.pageYOffset > 0) {
-		// 	setTimeout(() => {
-		// 		ScrollTrigger.refresh();
-		// 	}, 1100);
-		// }
+			// Init smooth scrollbar
+			const view = document.getElementById('smooth-wrapper');
+			const scrollbar = SmoothScrollbar.init(view, {
+				renderByPixels: false,
+				damping: 0.075
+			});
 
 
-		this.initScrollParallax();
-		// this.initScrollParallax2();
-	}
+			// let smoother = ScrollSmoother.create({
+			// 	wrapper: '#smooth-wrapper',
+			// 	content: '#smooth-content',
+			// 	ignoreMobileResize: true,
+			// 	normalizeScroll: true,
+			// 	smooth: 1,
+			// 	speed: 1.3,
+			// 	effects: true,
+			// });
 
-	update() {
-		this.updatePageHeight();
-		ScrollTrigger.refresh();
-	}
+			this.initScrollParallax();
 
-	updatePageHeight() {
-		document.body.style.height = this.container.clientHeight + 'px';
+			//return smoother;
+
+			// let parallaxImages = document.querySelectorAll('img[data-speed]');
+			// if(parallaxImages.length) {
+			// 	parallaxImages.forEach(parallaxImage => {
+			// 		let parent = parallaxImage.parentElement;
+			// 		gsap.to(parallaxImage, {
+			// 			y: (parallaxImage.offsetHeight - parent.offsetHeight) * 1.5,
+			// 			scrollTrigger: {
+			// 				trigger: parent,
+			// 				scrub: true,
+			// 				start: 'top bottom',
+			// 				end: 'bottom top',
+			// 			}
+			// 		});
+			// 	})
+			// }
+		}
+
 	}
 
 	initScrollParallax() {
-		let scrollParalaxElements = document.querySelectorAll('[data-scroll-parallax]');
+		let scrollParalaxElements = document.querySelectorAll('[data-scroll-parallax]:not(.handling)');
 		if (scrollParalaxElements.length) {
 			scrollParalaxElements.forEach(el => {
-
-				if (el.dataset.scrollParallaxMob && document.documentElement.clientWidth < 768) {
-					let [value, startEl, startScreen, endEl, endScreen, scrub = true] = el.dataset.scrollParallaxMob.split(',');
-					gsap.to(el, {
-						y: value,
-						duration: 1,
-						scrollTrigger: {
-							trigger: el.closest('[data-scroll-parallax-trigger]'),
-							scrub: typeof scrub == 'boolean' ? scrub : Number(scrub),
-							start: `${startEl} ${startScreen}`,
-							end: `${endEl} ${endScreen}`,
-							//markers: true
-						}
-					});
-				} else {
+				el.classList.add('handling');
+				if (!this.utils.isMobile()) {
 					let [value, startEl, startScreen, endEl, endScreen] = el.dataset.scrollParallax.split(',');
 					gsap.to(el, {
 						y: value,
 						duration: 1,
 						scrollTrigger: {
 							trigger: el.closest('[data-scroll-parallax-trigger]'),
-							scrub: 2,
+							scrub: 1,
 							start: `${startEl} ${startScreen}`,
 							end: `${endEl} ${endScreen}`,
 							//markers: true
@@ -92,32 +91,6 @@ class SmoothScroll {
 					});
 				}
 			})
-		}
-	}
-
-	initScrollParallax2() {
-		let scrollParalaxElements = document.querySelectorAll('[data-speed]');
-		if (scrollParalaxElements.length) {
-
-			// scrollParalaxElements.forEach(el => {
-			// 	let speed = Number(el.getAttribute('data-speed'));
-			// 	let lag = Number(el.getAttribute('data-lag'));
-
-			// 	// ScrollTrigger.create({
-			// 	// 	trigger: el,
-			// 	// 	start: 'top 100%',
-			// 	// 	end: 'bottom 0%',
-			// 	// 	onUpdate: (self) => {
-			// 	// 		let value = 100 * ((self.progress - 0.5) * -1) * speed;
-			// 	// 		//console.log('update');
-			// 	// 		gsap.to(el, {
-			// 	// 			y: value,
-			// 	// 			duration: lag ? lag : 0,
-			// 	// 		})
-			// 	// 	}
-			// 	// })
-
-			// })
 		}
 	}
 }
@@ -145,6 +118,10 @@ class App {
 			if (this.utils.isSafari()) {
 				document.body.classList.add('safari');
 			}
+
+			@@include('../components/parallax-cover-section/parallax-cover-section.js');
+
+			this.smoother = this.smoothScroll.init();
 
 			this.utils.replaceToInlineSvg('.img-svg');
 			this.dynamicAdapt.init();
@@ -180,6 +157,7 @@ class App {
 		@@include('../components/instagram/instagram.js');
 		@@include('../components/reviews/reviews.js');
 		@@include('../components/about-team/about-team.js');
+		@@include('../components/other-articles/other-articles.js');
 	}
 
 
@@ -335,8 +313,6 @@ class App {
 
 			})
 		}
-
-		this.smoothScroll.init();
 	}
 
 	selectInit() {
@@ -349,6 +325,8 @@ class App {
 		@@include('../components/work-head/work-head.js');
 		@@include('../components/footer/footer.js');
 		@@include('../components/input-file/input-file.js');
+		@@include('../components/video-banner/video-banner.js');
+		@@include('../components/works/works.js');
 	}
 
 	componentsAfterLoad() {

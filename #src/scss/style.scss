@@ -55,6 +55,15 @@
 @import "../components/table/table";
 @import "../components/form/form";
 @import "../components/input-file/input-file";
+@import "../components/product-head/product-head";
+@import "../components/product-banner/product-banner";
+@import "../components/head-step/head-step";
+@import "../components/video-banner/video-banner";
+@import "../components/tags/tags";
+@import "../components/other-articles/other-articles";
+@import "../components/text-three-columns/text-three-columns";
+@import "../components/popup/popup";
+@import "../components/advantages/advantages";
 // ==== // components BLOCKS =====================================================
 
 // ==== PAGES =====================================================
@@ -63,4 +72,8 @@
 @import "pages/services";
 @import "pages/about";
 @import "pages/contact";
+@import "pages/ai";
+@import "pages/insights";
+@import "pages/article";
+@import "pages/404";
 // ==== AND PAGES =====================================================

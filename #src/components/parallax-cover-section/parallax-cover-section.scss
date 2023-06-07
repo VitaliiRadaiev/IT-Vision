@@ -3,10 +3,10 @@
     position: relative;
     z-index: 10;
     pointer-events: none;
-    margin-bottom: -15rem;
+   // margin-bottom: -15rem;
 
     &__inner {
         pointer-events: auto;
-        background-color: #fff;
+        background-color: $bg;
     }
 }

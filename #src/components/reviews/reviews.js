@@ -1,12 +1,13 @@
 {
     let reviewsSlider = document.querySelector('[data-slider="reviews"]');
     if(reviewsSlider) {
+        let wrapper = reviewsSlider.querySelector('.swiper-wrapper');
         let sliderData = new Swiper(reviewsSlider.querySelector('.swiper'), {
             slidesPerView: 'auto',
             spaceBetween: 0,
             speed: 600,
             centeredSlides: true,
-            loop: true,
+            loop: wrapper.children.length > 1 ? true : false,
             loopedSlides: 3,
             slideToClickedSlide: true,
             navigation: {

@@ -11,7 +11,7 @@
 
         & a {
             --border-width: 0.1rem;
-            background: linear-gradient(to bottom, transparent 0%,transparent calc(100% - var(--border-width)), transparent var(--border-width));
+            background: linear-gradient(to bottom, transparent 0%,transparent calc(100% - var(--border-width)), currentColor var(--border-width));
             transition: all .2s ease;
 
             @media (min-width: 992px) {
@@ -31,7 +31,7 @@
         color: $textColorThird;
 
         & strong {
-            font-weight: 650;
+            font-weight: 600;
             color: $textColorSecondary;
         }
         & > *:last-child {
@@ -61,6 +61,20 @@
                     text-indent: 4rem;
                 }
             }
+        }
+    }
+
+    &--color-light {
+        
+        & .lg-text-section__text, & .lg-text-section__title-2 {
+            color: rgba(255, 255, 255, 0.6);
+            & span.text-color-dark {
+                color: #fff !important;
+            }
+        }
+
+        & .lg-text-section__label {
+            color: #fff;
         }
     }
 }

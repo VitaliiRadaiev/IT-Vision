@@ -36,19 +36,24 @@ body {
 }
 body {
 	font-family: $mainFontFamily;
-	-ms-text-size-adjust: 100%;
-	-moz-text-size-adjust: 100%;
-	-webkit-text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 	color: $textColor;
 	font-weight: 400;
 	font-size: 1.9rem;
 	line-height: 2em;
 	transition: opacity 0.8s ease;
 	position: relative;
+	background-color: $bg;
+	height: 100%;
+
+	@media (max-width: $md2+px) {
+		font-size: 1.3rem;
+	}
 
 	&:not(.mobile) {
 		height: 100%;
-		overflow: hidden;
+		//overflow: hidden;
 		& a:not(.not-hover):hover {
 			color: $hover;
 		}
@@ -128,6 +133,24 @@ img {
 	width: auto;
 }
 
+h1,
+.title-1 {
+	margin-top: 0;
+	margin-bottom: 0;
+	font-weight: 600;
+	font-size: 4.8rem;
+	line-height: 1.4em;
+	letter-spacing: -0.02em;
+
+	@media (max-width: $md2+px) {
+		font-size: 2.8rem;
+	}
+
+	& strong {
+		font-weight: 600;
+	}
+}
+
 h2,
 .title-2 {
 	font-weight: 600;
@@ -140,11 +163,15 @@ h2,
 	@media (max-width: $md2+px) {
 		font-size: 2rem;
 	}
+
+	& strong {
+		font-weight: 600;
+	}
 }
 
 h3,
 .title-3 {
-	font-weight: 700;
+	font-weight: 600;
 	font-size: 2.2rem;
 	line-height: 1.4em;
 	margin-bottom: 0;
@@ -153,24 +180,41 @@ h3,
 	@media (max-width: $md2+px) {
 		font-size: 1.5rem;
 	}
+
+	& svg {
+		height: 0.8em;
+		width: auto;
+	}
+
+	& strong {
+		font-weight: 600;
+	}
 }
 h4,
 .title-4 {
-	font-weight: 700;
+	font-weight: 600;
 	font-size: 2.4rem;
 	line-height: 1.33em;
 	margin-bottom: 0;
 	margin-top: 0;
 	color: $textColorSecondary;
+
+	& strong {
+		font-weight: 600;
+	}
 }
 h5,
 .title-5 {
-	font-weight: 700;
+	font-weight: 600;
 	font-size: 2rem;
 	line-height: 1.1em;
 	margin-bottom: 0;
 	margin-top: 0;
 	color: $textColorSecondary;
+
+	& strong {
+		font-weight: 600;
+	}
 }
 
 .title-mb-default {
@@ -190,6 +234,11 @@ figure {
 
 ._page {
 	flex: 1 1 auto;
+	min-height: calc(100vh - 5.5rem);
+
+	@media (max-width: $md2+px) {
+		min-height: calc(100vh - 8.4rem);
+	}
 }
 
 .main-wrapper {
@@ -206,14 +255,50 @@ figure {
 	width: 100%;
 }
 
+.cb-layout {
+	height: 100%;
+}
+
+.cb-content {
+	height: 100%;
+}
+
 #smooth-wrapper {
 	transition: opacity 0.5s ease-in var(--global-animation-delay);
 	opacity: 0;
+	position: relative;
+	height: 100%;
+
+	@media (max-width: $md3+px) {
+		&:before {
+			position: absolute;
+			content: "";
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(24, 32, 57, 0.2);
+			z-index: 11;
+			opacity: 0;
+			visibility: 0;
+			transition: all 0.3s ease;
+			pointer-events: none;
+		}
+
+		&.sub-menu-open {
+			&:before {
+				opacity: 1;
+				visibility: visible;
+				pointer-events: auto;
+			}
+		}
+	}
 }
 
 #smooth-content {
 	display: flex;
 	flex-direction: column;
+	height: 100%;
 }
 
 .page-loaded #smooth-wrapper {
@@ -265,7 +350,7 @@ figure {
 	padding: 8rem 0;
 
 	@media (max-width: $md2+px) {
-		padding: 52px 0;
+		padding: 5.2rem 0;
 	}
 }
 
@@ -289,10 +374,6 @@ figure {
 	padding-top: 5.5rem;
 
 	@media (max-width: $md2+px) {
-		padding-top: 4.2rem;
-	}
-
-	@media (max-width: $md3+px) {
 		padding-top: 8.4rem;
 	}
 }
@@ -380,7 +461,7 @@ figure {
 }
 
 .text-color-dark {
-	color: $textColor !important;
+	color: $textColorSecondary !important;
 }
 
 .text-color-light {
@@ -483,6 +564,45 @@ figure {
 	font-weight: 700;
 }
 
+.line-height-100 {
+	line-height: 1em;
+}
+.line-height-110 {
+	line-height: 1.1em;
+}
+.line-height-120 {
+	line-height: 1.2em;
+}
+.line-height-130 {
+	line-height: 1.3em;
+}
+.line-height-140 {
+	line-height: 1.4em;
+}
+.line-height-150 {
+	line-height: 1.5em;
+}
+.line-height-160 {
+	line-height: 1.6em;
+}
+.line-height-170 {
+	line-height: 1.7em;
+}
+.line-height-180 {
+	line-height: 1.8em;
+}
+.line-height-190 {
+	line-height: 1.9em;
+}
+.line-height-200 {
+	line-height: 2em;
+}
+
+.last {
+	& > *:last-child {
+		margin-bottom: 0;
+	}
+}
 // === TEXT CONTETN BLOCK ========================================================================
 .text-content {
 	& h1,
@@ -492,14 +612,18 @@ figure {
 	& h5,
 	& h6 {
 		color: $textColorSecondary;
-		margin-bottom: 0.7em;
+		margin-bottom: 4rem;
+
+		@media (max-width: $md2+px) {
+			margin-bottom: 2.4rem;
+		}
 	}
 
 	& p,
 	& ul,
 	& ol,
 	& figure {
-		margin-bottom: 1.5em;
+		margin-bottom: 2em;
 	}
 
 	& a {
@@ -511,17 +635,42 @@ figure {
 	}
 
 	& ul {
-		padding-left: 3em;
-
-		@media (max-width: $md3+px) {
-			padding-left: 1.5em;
-		}
+		padding-left: 0;
 
 		& > li {
-			list-style: disc;
+			padding-left: 4.8rem;
+			list-style: none;
+			line-height: 1.6em;
+			position: relative;
+
+			@media (max-width: $md2+px) {
+				padding-left: 3.2rem;
+				line-height: 1.8em;
+			}
+
+			&:before {
+				position: absolute;
+				content: "";
+				top: 0.32rem;
+				left: 0;
+				height: 2.4rem;
+				width: 2.4rem;
+				border: 1px solid currentColor;
+				border-radius: 50%;
+
+				@media (max-width: $md2+px) {
+					height: 1.6rem;
+					width: 1.6rem;
+					top: 0.35rem;
+				}
+			}
 
 			&:not(:last-child) {
-				margin-bottom: 0.7em;
+				margin-bottom: 1.6rem;
+
+				@media (max-width: $md2+px) {
+					margin-bottom: 1.1rem;
+				}
 			}
 
 			& > *:last-child {
@@ -531,15 +680,43 @@ figure {
 	}
 
 	& ol {
-		padding-left: 3em;
+		padding-left: 0;
 
-		@media (max-width: $md3+px) {
-			padding-left: 1.5em;
-		}
+		padding-left: 0;
 
 		& > li {
+			padding-left: 4.8rem;
+			list-style: none;
+			line-height: 1.6em;
+			position: relative;
+
+			@media (max-width: $md2+px) {
+				padding-left: 3.2rem;
+				line-height: 1.8em;
+			}
+
+			@for $i from 1 through 100 {
+				&:nth-child(#{$i}) {
+					&:before {
+						position: absolute;
+						top: 0;
+						left: 0;
+						padding: 0 0.75rem;
+						content: "#{$i}";
+
+						@media (max-width: $md2+px) {
+							padding: 0 0.45rem;
+						}
+					}
+				}
+			}
+
 			&:not(:last-child) {
-				margin-bottom: 0.7em;
+				margin-bottom: 1.6rem;
+
+				@media (max-width: $md2+px) {
+					margin-bottom: 1.1rem;
+				}
 			}
 
 			& > *:last-child {
@@ -548,16 +725,29 @@ figure {
 		}
 	}
 
+	& .box {
+		margin: 16rem 0;
+
+		&:first-child {
+			margin-top: 0 !important;
+		}
+
+		@media (max-width: $md2+px) {
+			margin: 10.4rem 0;
+		}
+	}
+
 	& figure {
 		display: block;
 		width: 100%;
 		margin: 8rem 0;
 
-		@media (max-width: $md2+px) {
-			margin: 80px 0;
+		&:first-child {
+			margin-top: 0 !important;
 		}
-		@media (max-width: $md3+px) {
-			margin: 50px 0;
+
+		@media (max-width: $md2+px) {
+			margin: 5.6rem 0;
 		}
 
 		& > img {
@@ -576,6 +766,18 @@ figure {
 		}
 	}
 
+	& .video {
+		margin: 8rem 0;
+
+		&:first-child {
+			margin-top: 0 !important;
+		}
+
+		@media (max-width: $md2+px) {
+			margin: 5.6rem 0;
+		}
+	}
+
 	& video {
 		object-fit: cover;
 		display: block;
@@ -583,13 +785,16 @@ figure {
 		height: 60rem;
 		margin: 8rem 0;
 
+		&:first-child {
+			margin-top: 0 !important;
+		}
+
 		@media (max-width: $md2+px) {
 			height: 500px;
-			margin: 80px 0;
+			margin: 5.6rem 0;
 		}
 		@media (max-width: $md3+px) {
 			height: 380px;
-			margin: 50px 0;
 		}
 	}
 
@@ -599,24 +804,28 @@ figure {
 		height: 60rem;
 		margin: 8rem 0;
 
+		&:first-child {
+			margin-top: 0 !important;
+		}
+
 		@media (max-width: $md2+px) {
 			height: 500px;
-			margin: 80px 0;
+			margin: 5.6rem 0;
 		}
 		@media (max-width: $md3+px) {
 			height: 380px;
-			margin: 50px 0;
 		}
 	}
 
 	& table {
-		margin: 9rem 0;
+		margin: 8rem 0;
+
+		&:first-child {
+			margin-top: 0 !important;
+		}
 
 		@media (max-width: $md2+px) {
-			margin: 80px 0;
-		}
-		@media (max-width: $md3+px) {
-			margin: 50px 0;
+			margin: 5.6rem 0;
 		}
 
 		& + h1,
@@ -629,6 +838,11 @@ figure {
 		}
 	}
 
+	& .quote,
+	& .video,
+	& video,
+	& iframe,
+	& figure,
 	& p,
 	& ul,
 	& ol,
@@ -645,10 +859,105 @@ figure {
 		& ~ h4,
 		& ~ h5,
 		& ~ h6 {
-			margin-top: 1.4em;
+			margin-top: 12rem;
+
+			@media (max-width: $md2+px) {
+				margin-top: 8rem;
+			}
+		}
+	}
+
+	&.text-3 {
+		& ol {
+			& > li {
+				line-height: inherit;
+
+				@media (max-width: $md2+px) {
+					line-height: inherit;
+				}
+
+				&:not(:last-child) {
+					margin-bottom: 4rem;
+
+					@media (max-width: $md2+px) {
+						margin-bottom: 2.4rem;
+					}
+				}
+			}
 		}
 	}
 }
+
+.quote {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 4rem;
+
+	@media (max-width: $md2+px) {
+		margin-bottom: 2.4rem;
+	}
+
+	&:before {
+		content: "«";
+	}
+	&:after {
+		content: "»";
+	}
+}
+
+.video {
+	position: relative;
+	&__poster {
+		padding-bottom: 66.666%;
+
+		&:not(:last-child) {
+			margin-bottom: 2.4rem;
+
+			@media (max-width: $md2+px) {
+				margin-bottom: 1.6rem;
+			}
+		}
+	}
+
+	&__description {
+	}
+
+	&__play {
+		position: absolute;
+		z-index: 3;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		height: 9.6rem;
+		width: 9.6rem;
+		border-radius: 50%;
+
+		@media (max-width: $md2+px) {
+			height: 6.4rem;
+			width: 6.4rem;
+		}
+
+		& img,
+		& svg {
+			width: 100%;
+			height: auto;
+
+			& circle {
+				transition: all 0.3s ease;
+			}
+		}
+
+		@media (min-width: 992px) {
+			&:hover {
+				& circle {
+					fill: #a93726;
+				}
+			}
+		}
+	}
+}
+
 // === and TEXT CONTETN BLOCK ========================================================================
 
 .pt-10 {
@@ -1526,6 +1835,9 @@ figure {
 .mb-8 {
 	margin-bottom: 8rem;
 }
+.mb-12 {
+	margin-bottom: 1.2rem;
+}
 .mb-16 {
 	margin-bottom: 1.6rem;
 }
@@ -1628,8 +1940,89 @@ figure {
 		margin-bottom: 10.4rem;
 	}
 }
+.mb-md-120 {
+	@media (min-width: 768px) {
+		margin-bottom: 16rem;
+	}
+}
 .mb-md-160 {
 	@media (min-width: 768px) {
+		margin-bottom: 16rem;
+	}
+}
+
+.mb-lg-8 {
+	@media (min-width: 992px) {
+		margin-bottom: 8rem;
+	}
+}
+.mb-lg-16 {
+	@media (min-width: 992px) {
+		margin-bottom: 1.6rem;
+	}
+}
+.mb-lg-24 {
+	@media (min-width: 992px) {
+		margin-bottom: 2.4rem;
+	}
+}
+.mb-lg-32 {
+	@media (min-width: 992px) {
+		margin-bottom: 3.2rem;
+	}
+}
+.mb-lg-40 {
+	@media (min-width: 992px) {
+		margin-bottom: 4rem;
+	}
+}
+.mb-lg-48 {
+	@media (min-width: 992px) {
+		margin-bottom: 4.8rem;
+	}
+}
+.mb-lg-56 {
+	@media (min-width: 992px) {
+		margin-bottom: 5.6rem;
+	}
+}
+.mb-lg-64 {
+	@media (min-width: 992px) {
+		margin-bottom: 6.4rem;
+	}
+}
+.mb-lg-72 {
+	@media (min-width: 992px) {
+		margin-bottom: 7.2rem;
+	}
+}
+.mb-lg-80 {
+	@media (min-width: 992px) {
+		margin-bottom: 8rem;
+	}
+}
+.mb-lg-88 {
+	@media (min-width: 992px) {
+		margin-bottom: 8.8rem;
+	}
+}
+.mb-lg-96 {
+	@media (min-width: 992px) {
+		margin-bottom: 9.6rem;
+	}
+}
+.mb-lg-104 {
+	@media (min-width: 992px) {
+		margin-bottom: 10.4rem;
+	}
+}
+.mb-lg-120 {
+	@media (min-width: 992px) {
+		margin-bottom: 16rem;
+	}
+}
+.mb-lg-160 {
+	@media (min-width: 992px) {
 		margin-bottom: 16rem;
 	}
 }
@@ -1739,4 +2132,3 @@ figure {
 		margin-top: 10.4rem;
 	}
 }
-

@@ -350,88 +350,87 @@ class DynamicAdapt {
 
 class SmoothScroll {
 	constructor() {
-
-		
 		this.utils = new Utils();
 
+		window.pageSmoothScroll = {
+			update: () => {
+				ScrollTrigger.refresh();
+				ScrollSmoother.refresh();
+				this.initScrollParallax();
+
+				let id = setInterval(() => {
+					ScrollTrigger.refresh();
+					ScrollSmoother.refresh();
+				}, 20);
+
+				setTimeout(() => {
+					clearInterval(id);
+				}, 200)
+			}
+		};
 	}
 
 	init() {
-		gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-		ScrollTrigger.normalizeScroll(true);
-		ScrollSmoother.create({
-			wrapper: '#smooth-wrapper',
-			content: '#smooth-content',
-			ignoreMobileResize: true,
-			smooth: 2.5,
-			speed: 1.3,
-			effects: true,
-		})
+		console.dir(window);
 
-		// if (!this.utils.isMobile()) {
-		// 	this.container = document.querySelector('[data-smooth-scroll-container]');
+		gsap.registerPlugin(ScrollTrigger);
 
-		// 	this.updatePageHeight();
+		if (!this.utils.isMobile() && !this.utils.isSafari()) {
 
-		// 	if (!this.container) return;
-
-		// 	window.addEventListener('scroll', () => {
-
-		// 		gsap.to(this.container, {
-		// 			duration: 1,
-		// 			y: `-${window.pageYOffset}`,
-		// 		})
-		// 	});
-
-		// 	window.addEventListener('resize', () => this.update());
-		// }
-
-		// if (window.pageYOffset > 0) {
-		// 	setTimeout(() => {
-		// 		ScrollTrigger.refresh();
-		// 	}, 1100);
-		// }
+			// Init smooth scrollbar
+			const view = document.getElementById('smooth-wrapper');
+			const scrollbar = SmoothScrollbar.init(view, {
+				renderByPixels: false,
+				damping: 0.075
+			});
 
 
-		this.initScrollParallax();
-		// this.initScrollParallax2();
-	}
+			// let smoother = ScrollSmoother.create({
+			// 	wrapper: '#smooth-wrapper',
+			// 	content: '#smooth-content',
+			// 	ignoreMobileResize: true,
+			// 	normalizeScroll: true,
+			// 	smooth: 1,
+			// 	speed: 1.3,
+			// 	effects: true,
+			// });
 
-	update() {
-		this.updatePageHeight();
-		ScrollTrigger.refresh();
-	}
+			this.initScrollParallax();
 
-	updatePageHeight() {
-		document.body.style.height = this.container.clientHeight + 'px';
+			//return smoother;
+
+			// let parallaxImages = document.querySelectorAll('img[data-speed]');
+			// if(parallaxImages.length) {
+			// 	parallaxImages.forEach(parallaxImage => {
+			// 		let parent = parallaxImage.parentElement;
+			// 		gsap.to(parallaxImage, {
+			// 			y: (parallaxImage.offsetHeight - parent.offsetHeight) * 1.5,
+			// 			scrollTrigger: {
+			// 				trigger: parent,
+			// 				scrub: true,
+			// 				start: 'top bottom',
+			// 				end: 'bottom top',
+			// 			}
+			// 		});
+			// 	})
+			// }
+		}
+
 	}
 
 	initScrollParallax() {
-		let scrollParalaxElements = document.querySelectorAll('[data-scroll-parallax]');
+		let scrollParalaxElements = document.querySelectorAll('[data-scroll-parallax]:not(.handling)');
 		if (scrollParalaxElements.length) {
 			scrollParalaxElements.forEach(el => {
-
-				if (el.dataset.scrollParallaxMob && document.documentElement.clientWidth < 768) {
-					let [value, startEl, startScreen, endEl, endScreen, scrub = true] = el.dataset.scrollParallaxMob.split(',');
-					gsap.to(el, {
-						y: value,
-						duration: 1,
-						scrollTrigger: {
-							trigger: el.closest('[data-scroll-parallax-trigger]'),
-							scrub: typeof scrub == 'boolean' ? scrub : Number(scrub),
-							start: `${startEl} ${startScreen}`,
-							end: `${endEl} ${endScreen}`,
-							//markers: true
-						}
-					});
-				} else {
+				el.classList.add('handling');
+				if (!this.utils.isMobile()) {
 					let [value, startEl, startScreen, endEl, endScreen] = el.dataset.scrollParallax.split(',');
 					gsap.to(el, {
 						y: value,
 						duration: 1,
 						scrollTrigger: {
 							trigger: el.closest('[data-scroll-parallax-trigger]'),
-							scrub: 2,
+							scrub: 1,
 							start: `${startEl} ${startScreen}`,
 							end: `${endEl} ${endScreen}`,
 							//markers: true
@@ -439,32 +438,6 @@ class SmoothScroll {
 					});
 				}
 			})
-		}
-	}
-
-	initScrollParallax2() {
-		let scrollParalaxElements = document.querySelectorAll('[data-speed]');
-		if (scrollParalaxElements.length) {
-
-			// scrollParalaxElements.forEach(el => {
-			// 	let speed = Number(el.getAttribute('data-speed'));
-			// 	let lag = Number(el.getAttribute('data-lag'));
-
-			// 	// ScrollTrigger.create({
-			// 	// 	trigger: el,
-			// 	// 	start: 'top 100%',
-			// 	// 	end: 'bottom 0%',
-			// 	// 	onUpdate: (self) => {
-			// 	// 		let value = 100 * ((self.progress - 0.5) * -1) * speed;
-			// 	// 		//console.log('update');
-			// 	// 		gsap.to(el, {
-			// 	// 			y: value,
-			// 	// 			duration: lag ? lag : 0,
-			// 	// 		})
-			// 	// 	}
-			// 	// })
-
-			// })
 		}
 	}
 }
@@ -493,6 +466,23 @@ class App {
 				document.body.classList.add('safari');
 			}
 
+			{
+    let parallaxCoverSection = document.querySelector('.parallax-cover-section');
+    if(parallaxCoverSection) {
+        let inner = parallaxCoverSection.querySelector('.parallax-cover-section__inner');
+        let firstChild = inner.firstElementChild;
+        if(firstChild) {
+            let attrValue = inner.getAttribute('data-scroll-parallax');
+            if(attrValue) {
+                inner.removeAttribute('data-scroll-parallax');
+                firstChild.setAttribute('data-scroll-parallax', attrValue);
+            }
+        }
+    }
+};
+
+			this.smoother = this.smoothScroll.init();
+
 			this.utils.replaceToInlineSvg('.img-svg');
 			this.dynamicAdapt.init();
 			this.headerHandler();
@@ -517,6 +507,8 @@ class App {
 	headerHandler() {
 		let headerEl = document.querySelector('[data-header]');
 if (headerEl) {
+    let headerNavEl = document.querySelector('[data-header-nav]');
+    let mainWrapper = document.querySelector('#smooth-wrapper');
     let pageScrollValue = window.pageYOffset;
 
     window.addEventListener('scroll', () => {
@@ -526,17 +518,78 @@ if (headerEl) {
             } else if(window.pageYOffset < pageScrollValue) {
                 headerEl.classList.remove('header--scroll-down');
             }
+        } else {
+            headerEl.classList.remove('header--scroll-down');
         }
 
         pageScrollValue = window.pageYOffset;
     })
 
+    if(!this.utils.isMobile()) {
+        headerEl.addEventListener('mouseenter', () => {
+            headerEl.classList.add('headerEl--not-hide');
+        })
+        headerEl.addEventListener('mouseleave', () => {
+            headerEl.classList.remove('headerEl--not-hide');
+        })
+    } else {
+        let menuItemsHasChildren = headerEl.querySelectorAll('.menu-item-has-children');
+        if(menuItemsHasChildren.length) {
+            menuItemsHasChildren = Array.from(menuItemsHasChildren).map(i => ({el: i, subMenu: i.querySelector('.sub-menu')}));
+            
+            if(document.documentElement.clientWidth < 768) {
+                menuItemsHasChildren.forEach(i => {
+                    headerNavEl.append(i.subMenu);
+                })
+            }
+
+            menuItemsHasChildren.forEach(manuItem => {
+                manuItem.el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if(manuItem.el.classList.contains('sub-menu-open')) {
+                        manuItem.el.classList.remove('sub-menu-open');
+                        manuItem.subMenu.classList.remove('sub-menu--open');
+                        headerEl.classList.remove('headerEl--not-hide');
+                        mainWrapper.classList.remove('sub-menu-open');
+                        this.smoother.paused(false);
+                    } else {
+                        manuItem.el.classList.add('sub-menu-open');
+                        manuItem.subMenu.classList.add('sub-menu--open');
+                        headerEl.classList.add('headerEl--not-hide');
+                        mainWrapper.classList.add('sub-menu-open');
+                        this.smoother.paused(true);
+                    }
+
+                    menuItemsHasChildren.forEach(i => {
+                        if(i.el !== manuItem.el) {
+                            i.el.classList.remove('sub-menu-open');
+                            i.subMenu.classList.remove('sub-menu--open');
+                        }
+                    })
+                })
+            });
+
+            document.addEventListener('click', (e) => {
+                if(!e.target.closest('.menu-item-has-children')) {
+                    headerEl.classList.remove('headerEl--not-hide');
+
+                    menuItemsHasChildren.forEach(i => {
+                        i.el.classList.remove('sub-menu-open');
+                        i.subMenu.classList.remove('sub-menu--open');
+                    });
+                    mainWrapper.classList.remove('sub-menu-open');
+                    this.smoother.paused(false);
+                }
+            })
+        }
+    }
 
 
-    let headerNavEl = document.querySelector('[data-header-nav]');
+
     if (headerNavEl) {
         let mySwiper;
         let slider = headerNavEl;
+        let activeEl = headerNavEl.querySelector('.header__nav-link.active');
 
         function mobileSlider() {
             if (document.documentElement.clientWidth <= 767.98 && slider.dataset.mobile == 'false') {
@@ -545,10 +598,10 @@ if (headerEl) {
                     speed: 600,
                     spaceBetween: 36,
                     freeMode: true,
-                    slideToClickedSlide: true,
+                    //slideToClickedSlide: true,
                     watchOverflow: true,
                     watchSlidesVisibility: true,
-                    initialSlide: Array.from(headerNavEl.firstElementChild.children).indexOf(headerNavEl.querySelector('.header__nav-link.active').closest('.swiper-slide')),
+                    initialSlide: activeEl ? Array.from(headerNavEl.firstElementChild.children).indexOf(activeEl.closest('.swiper-slide')) : 0,
                 });
 
                 slider.dataset.mobile = 'true';
@@ -581,7 +634,10 @@ const lockPadding = document.querySelectorAll('[data-popup="lock-padding"]');
 
 let unlock = true;
 
-const timeout = 800;
+const timeout = 600;
+
+const smoother = this.smoother;
+
 
 if(popupLinks.length > 0) {
 	for (let index = 0; index < popupLinks.length; index++) {
@@ -621,7 +677,7 @@ function popupOpen(curentPopup) {
 				popupClose(e.target.closest('.popup')); 
 			}
 		});
-
+		smoother.paused(true);
 	}
 }
 
@@ -631,6 +687,8 @@ function popupClose(popupActive, doUnlock = true) {
 		if(doUnlock) {
 			bodyUnlock();
 		}
+
+		smoother.paused(false);
 	}
 }
 
@@ -738,7 +796,52 @@ window.popup = {
 		popupClose(popup);
 	}
 }
-;
+
+
+const ticker = {
+	seconds: 120,
+	currentTick: 0,
+
+	_tick() {
+		let id = setInterval(() => {
+			this.currentTick++
+
+			if (this.currentTick >= this.seconds) {
+				this.currentTick = 0;
+				if (this.cl) {
+					this.cl();
+					clearInterval(id);
+				};
+			}
+		}, 1000)
+	},
+
+	init(cl) {
+		this.cl = cl;
+		this._tick();
+	},
+
+	reset() {
+		this.currentTick = 0;
+	}
+}
+
+ticker.init(() => {window.popup.open('#dont-leave')});
+
+document.addEventListener('keydown', (e) => {
+	ticker.reset();
+});
+
+document.addEventListener('mousemove', (e) => {
+	ticker.reset();
+})
+
+document.addEventListener('click', () => {
+	ticker.reset();
+})
+document.addEventListener('scroll', () => {
+	ticker.reset();
+});
 	}
 
 	slidersInit() {
@@ -793,12 +896,13 @@ window.popup = {
 		{
     let reviewsSlider = document.querySelector('[data-slider="reviews"]');
     if(reviewsSlider) {
+        let wrapper = reviewsSlider.querySelector('.swiper-wrapper');
         let sliderData = new Swiper(reviewsSlider.querySelector('.swiper'), {
             slidesPerView: 'auto',
             spaceBetween: 0,
             speed: 600,
             centeredSlides: true,
-            loop: true,
+            loop: wrapper.children.length > 1 ? true : false,
             loopedSlides: 3,
             slideToClickedSlide: true,
             navigation: {
@@ -834,6 +938,36 @@ window.popup = {
             speed: 600,
             loop: true,
             loopedSlides: 3,
+        });
+    }
+};
+		{
+    let otherArticlesSlider = document.querySelector('[data-slider="other-articles"]');
+    if(otherArticlesSlider) {
+        let wrapper = otherArticlesSlider.querySelector('.swiper-wrapper');
+        let sliderData = new Swiper(otherArticlesSlider.querySelector('.swiper'), {
+            slidesPerView: 'auto',
+            spaceBetween: 0,
+            speed: 600,
+            centeredSlides: true,
+            loop: wrapper.children.length > 1 ? true : false,
+            loopedSlides: 3,
+            slideToClickedSlide: true,
+            navigation: {
+                nextEl: otherArticlesSlider.querySelector('.other-articles__btn-next'),
+            },
+            breakpoints: {
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 0,
+                    autoHeight: true,
+                },
+                768: {
+                    slidesPerView: 'auto',
+                    spaceBetween: 0,
+                    autoHeight: false,
+                }
+            }
         });
     }
 };
@@ -992,8 +1126,6 @@ window.popup = {
 
 			})
 		}
-
-		this.smoothScroll.init();
 	}
 
 	selectInit() {
@@ -1232,43 +1364,77 @@ window.popup = {
 
 	componentsBeforeLoad() {
 		{
-    let textParallaxSection = document.querySelector('[data-text-parallax]');
-    if(textParallaxSection) {
-        let content = textParallaxSection.querySelector('.text-parallax__body');
-
-        gsap.to(content,{
-            y:`-${content.clientHeight - textParallaxSection.clientHeight + (textParallaxSection.clientHeight / 4)}`,
-            duration: 1,
-            //ease: 'none',
-            scrollTrigger: {
-                trigger: textParallaxSection,
-                start: 'top center',
-                end: 'bottom center',
-                scrub: 2,
+    let textParallaxSections = document.querySelectorAll('[data-text-parallax]');
+    if (textParallaxSections) {
+        textParallaxSections.forEach(textParallaxSection => {
+            let cover = textParallaxSection.querySelector('.text-parallax__cover');
+            let body = textParallaxSection.querySelector('.text-parallax__body');
+            let bg = textParallaxSection.querySelector('.text-parallax__bg');
+            let textElements = textParallaxSection.querySelectorAll('.text-parallax__body p');
+    
+            ScrollTrigger.create({
+                trigger: cover,
+                pin: cover,
+                start: () => `top top`,
+                end: () => `+=${body.offsetHeight - cover.offsetHeight}`,
+                pinSpacing: false
+            });
+    
+            if(bg) {
+                ScrollTrigger.create({
+                    trigger: bg,
+                    pin: bg,
+                    start: () => `top top`,
+                    end: () => `+=${body.offsetHeight - bg.offsetHeight}`,
+                    pinSpacing: false
+                });
             }
-        })
+
+            if(textElements.length) {
+                textElements.forEach(textElement => {
+                    ScrollTrigger.create({
+                        trigger: textElement,
+                        onUpdate: (e) => {
+                            let progress = (e.progress * 2);
+                            let value = progress > 1 ? 2 - progress : progress;
+                            gsap.to(textElement, {
+                                opacity: value,
+                                duration: 0
+                            })
+                        }
+                    });
+                })
+            }
+        });
     }
 };
 		{
-    let statsSection = document.querySelector('[data-stats]');
-    if (statsSection) {
-        let numElements = statsSection.querySelectorAll('.stats__num span');
-        if (numElements.length) {
-            numElements.forEach(el => {
-                gsap.from(el, {
-                    textContent: 0,
-                    duration: 0.4,
-                    snap: { textContent: 1 },
-                    stagger: 1,
-                    // onUpdate: textContent.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-                    scrollTrigger: {
-                        trigger: el,
-                        start: 'top 75%',
-                    }
-                });
-            })
-
-        }
+    let statsSections = document.querySelectorAll('[data-stats]');
+    if (statsSections.length) {
+        statsSections.forEach(statsSection => {
+            let isLoad = statsSection.dataset.stats === 'load' ? true : false;
+            let numElements = statsSection.querySelectorAll('.stats__num');
+            if (numElements.length) {
+                numElements.forEach(el => {
+                    let num = parseInt(el.innerText);
+                    let sign = el.innerText.match(/[^0-9]$/);
+                    el.innerHTML = `<span>${num}</span>${sign ? sign : ''}`;
+                    gsap.from(el.firstElementChild, {
+                        textContent: 0,
+                        duration: isLoad ? 0.8 : 0.4,
+                        snap: { textContent: 1 },
+                        stagger: 1,
+                        delay: isLoad ? 0.8 : 0,
+                        // onUpdate: textContent.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+                        scrollTrigger: {
+                            trigger: el,
+                            start: 'top 75%',
+                        }
+                    });
+                })
+    
+            }
+        })
     }
 };
 		{
@@ -1365,6 +1531,37 @@ window.popup = {
 })()
 
 ;
+		{
+    let videoBanners = document.querySelectorAll('[data-video-banner]');
+    if(videoBanners.length) {
+        videoBanners.forEach(videoBanner => {
+            let video = videoBanner.querySelector('video');
+            if(video) {
+                video.pause();
+                ScrollTrigger.create({
+                    trigger: video,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    onEnter: () => {
+                        video.play();
+                    },
+                    onLeave: () => {
+                        video.pause();
+                    },
+                    onEnterBack: () => {
+                        video.play();
+                    },
+                    onLeaveBack: () => {
+                        video.pause();
+                    }
+                })
+            }
+        })
+    }
+};
+		{
+
+};
 	}
 
 	componentsAfterLoad() {
