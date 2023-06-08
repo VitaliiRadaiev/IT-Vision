@@ -115,6 +115,12 @@
         height: 100%;
         z-index: 1;
         transition: opacity 0.2s ease-in;
+
+        &.ibg img {
+            position: static;
+            top: auto;
+            left: auto;
+        }
     }
 
     &__img-hover {
@@ -127,6 +133,12 @@
         transition: all 0.2s ease-in;
         transform: scale(1.05);
         opacity: 0;
+
+        &.ibg img {
+            position: static;
+            top: auto;
+            left: auto;
+        }
     }
 
     &__label {

@@ -5610,6 +5610,12 @@ body.mobile .menu-item-has-children.sub-menu-open .sub-menu {
   transition: opacity 0.2s ease-in;
 }
 
+.work-preview-card__img.ibg img {
+  position: static;
+  top: auto;
+  left: auto;
+}
+
 .work-preview-card__img-hover {
   position: absolute;
   top: 0;
@@ -5624,6 +5630,12 @@ body.mobile .menu-item-has-children.sub-menu-open .sub-menu {
       -ms-transform: scale(1.05);
           transform: scale(1.05);
   opacity: 0;
+}
+
+.work-preview-card__img-hover.ibg img {
+  position: static;
+  top: auto;
+  left: auto;
 }
 
 .work-preview-card__label {
