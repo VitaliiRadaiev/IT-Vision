@@ -24,7 +24,7 @@ class SmoothScroll {
 	}
 
 	init() {
-		console.dir(window);
+		// console.dir(window);
 
 		gsap.registerPlugin(ScrollTrigger);
 
