@@ -24,8 +24,6 @@ class SmoothScroll {
 	}
 
 	init() {
-		// console.dir(window);
-
 		gsap.registerPlugin(ScrollTrigger);
 
 		if (!this.utils.isMobile()) {

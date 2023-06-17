@@ -11,16 +11,16 @@
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
 	<style>
+		body {
+			opacity: 0;
+			transition: opacity 0.5s ease-in 0s;
+		}
+		body.page-loaded {
+			opacity: 1;
+		}
+		
 		body.page-loaded ._preload-body {
 			display: none;
-		}
-
-		body.page-is-load ._preload-body:before {
-			display: none;
-		}
-
-		#smooth-wrapper {
-			opacity: 1;
 		}
 
 		._preload-body {
