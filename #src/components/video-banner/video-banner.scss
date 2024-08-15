@@ -33,6 +33,8 @@
         margin: 0 auto;
         width: 100%;
         max-width: 118.4rem;
+        position: relative;
+        z-index: 2;
 
         @media (max-width: $md3+px) {
             width: 100vw;
@@ -45,11 +47,13 @@
         overflow: hidden;
         border-radius: 1.6rem;
         padding-bottom: 56.25%;
+        z-index: 2;
 
         @media (max-width: $md2+px) {
             border-radius: 0.8rem;
         }
         @media (max-width: $md3+px) {
+            overflow: visible;
             border-radius: 0rem;
         }
 
@@ -59,6 +63,7 @@
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: 2;
         }
 
         & video {
@@ -66,11 +71,18 @@
         }
     }
 
+    &__poster {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
     &__icon-play {
-        display: none;
-        
+
         @media (min-width: 768px) {
-            display: none;
+            width: 8rem;
         }
 
         position: absolute;
@@ -83,6 +95,25 @@
         & img, & svg {
             width: 100%;
             height: auto;
+            border: 0.2rem solid $mainColor;
+            border-radius: 100%;
+
+            & circle, path {
+                transition: all .2s ease;
+            }
+        }
+
+        @media (min-width: 992px) {
+            &:hover {
+                & svg circle {
+                    fill: white;
+                }
+
+                & svg path {
+                    opacity: 1;
+                    fill: $hover;
+                }
+            }
         }
     }
 }

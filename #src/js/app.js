@@ -1,95 +1,111 @@
 @@include('files/utils.js');
 @@include('files/dynamic_adapt.js');
 
+class ScaleSpeedPlugin extends SmoothScrollbar.ScrollbarPlugin {
+	transformDelta(delta) {
+		const { speed } = this.options;
+
+		return {
+			x: delta.x * speed,
+			y: delta.y * speed,
+		};
+	}
+}
+
+ScaleSpeedPlugin.pluginName = 'scaleSpeed';
+ScaleSpeedPlugin.defaultOptions = {
+	speed: 1,
+}
+
 class SmoothScroll {
 	constructor() {
 		this.utils = new Utils();
-
-		window.pageSmoothScroll = {
-			update: () => {
-				ScrollTrigger.refresh();
-				ScrollSmoother.refresh();
-				this.initScrollParallax();
-
-				let id = setInterval(() => {
-					ScrollTrigger.refresh();
-					ScrollSmoother.refresh();
-				}, 20);
-
-				setTimeout(() => {
-					clearInterval(id);
-				}, 200)
-			}
-		};
 	}
 
 	init() {
+
 		gsap.registerPlugin(ScrollTrigger);
 
 		if (!this.utils.isMobile()) {
+			SmoothScrollbar.use(ScaleSpeedPlugin);
 
 			// Init smooth scrollbar
 			const view = document.getElementById('smooth-wrapper');
 			const scrollbar = SmoothScrollbar.init(view, {
 				renderByPixels: false,
-				damping: 0.075
+				damping: 0.075, plugins: {
+					scaleSpeed: {
+						speed: this.utils.isSafari() ? 1.5 : 0.85,
+					},
+				},
 			});
 
+			window.pageSmoothScroll = {
+				listOfUpdateFunctions: [],
+				update: () => {
+					ScrollTrigger.refresh();
+					this.initScrollParallax();
+	
+					let id = setInterval(() => {
+						ScrollTrigger.refresh();
+						scrollbar.update();
+					}, 20);
+	
+					setTimeout(() => {
+						clearInterval(id);
+					}, 200)
 
-			// let smoother = ScrollSmoother.create({
-			// 	wrapper: '#smooth-wrapper',
-			// 	content: '#smooth-content',
-			// 	ignoreMobileResize: true,
-			// 	normalizeScroll: true,
-			// 	smooth: 1,
-			// 	speed: 1.3,
-			// 	effects: true,
-			// });
+					
+					if(window.pageSmoothScroll.listOfUpdateFunctions.length) {
+						window.pageSmoothScroll.listOfUpdateFunctions.forEach(f => f()); 
+					}
+				}
+			};
 
 			this.initScrollParallax();
 
-			//return smoother;
+			let parallaxImages = document.querySelectorAll('img[data-speed]');
+			if (parallaxImages.length) {
+				parallaxImages.forEach(parallaxImage => {
+					let parent = parallaxImage.parentElement;
+					gsap.to(parallaxImage, {
+						y: (parallaxImage.offsetHeight - parent.offsetHeight),
+						scrollTrigger: {
+							trigger: parent,
+							scrub: true,
+							start: 'top bottom',
+							end: 'bottom top',
+						}
+					});
+				})
+			}
 
-			// let parallaxImages = document.querySelectorAll('img[data-speed]');
-			// if(parallaxImages.length) {
-			// 	parallaxImages.forEach(parallaxImage => {
-			// 		let parent = parallaxImage.parentElement;
-			// 		gsap.to(parallaxImage, {
-			// 			y: (parallaxImage.offsetHeight - parent.offsetHeight) * 1.5,
-			// 			scrollTrigger: {
-			// 				trigger: parent,
-			// 				scrub: true,
-			// 				start: 'top bottom',
-			// 				end: 'bottom top',
-			// 			}
-			// 		});
-			// 	})
-			// }
+			return scrollbar;
 		}
 
 	}
 
 	initScrollParallax() {
-		let scrollParalaxElements = document.querySelectorAll('[data-scroll-parallax]:not(.handling)');
-		if (scrollParalaxElements.length) {
-			scrollParalaxElements.forEach(el => {
-				el.classList.add('handling');
-				if (!this.utils.isMobile()) {
-					let [value, startEl, startScreen, endEl, endScreen] = el.dataset.scrollParallax.split(',');
-					gsap.to(el, {
-						y: value,
-						duration: 1,
-						scrollTrigger: {
-							trigger: el.closest('[data-scroll-parallax-trigger]'),
-							scrub: 1,
-							start: `${startEl} ${startScreen}`,
-							end: `${endEl} ${endScreen}`,
-							//markers: true
-						}
-					});
-				}
-			})
-		}
+		// let scrollParalaxElements = document.querySelectorAll('[data-scroll-parallax]:not(.handling)');
+		// if (scrollParalaxElements.length) {
+		// 	scrollParalaxElements.forEach(el => {
+		// 		el.classList.add('handling');
+		// 		if (!this.utils.isMobile()) {
+		// 			let [value, startEl, startScreen, endEl, endScreen] = el.dataset.scrollParallax.split(',');
+		// 			gsap.to(el, {
+		// 				y: value,
+		// 				duration: 1,
+		// 				scrollTrigger: {
+		// 					trigger: el.closest('[data-scroll-parallax-trigger]'),
+		// 					scrub: 1,
+		// 					start: `${startEl} ${startScreen}`,
+		// 					end: `${endEl} ${endScreen}`,
+		// 					//markers: true
+		// 				}
+		// 			});
+		// 		}
+		// 	})
+		// }
 	}
 }
 
@@ -325,11 +341,18 @@ class App {
 		@@include('../components/input-file/input-file.js');
 		@@include('../components/video-banner/video-banner.js');
 		@@include('../components/works/works.js');
+
+		if (!this.utils.isMobile()) {
+			@@include('../js/plugins/mouse-magnetic.js');
+			@@include('../components/buttons/buttons.js');
+		}
+
 	}
 
 	componentsAfterLoad() {
 
 	}
+
 }
 
 let app = new App(new Utils(), new DynamicAdapt('max'));
